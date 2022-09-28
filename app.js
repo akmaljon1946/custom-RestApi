@@ -10,7 +10,7 @@ let CONTACTS = [
 app.use(express.json());
 
 //GET
-app.get('/api/contacts', (req, res) => {
+app.get('resapi.netlify.app', (req, res) => {
   setTimeout(() => {
     res.status(200).json(CONTACTS);
 
@@ -18,7 +18,7 @@ app.get('/api/contacts', (req, res) => {
 });
 
 //POST
-app.post('/api/contacts', (req, res) => {
+app.post('resapi.netlify.app', (req, res) => {
   const contact = { id: v4(), ...req.body, marked: false };
   CONTACTS.push(contact);
   res.status(201).json(contact);
@@ -26,13 +26,13 @@ app.post('/api/contacts', (req, res) => {
 });
 
 //DELETE
-app.delete('/api/contacts/:id', (req, res) => {
+app.delete('resapi.netlify.app/:id', (req, res) => {
   CONTACTS = CONTACTS.filter(c => c.id !== req.params.id);
   res.status(200).json({ message: 'Malumot ochirib tashlandi' });
 });
 
 //PUT
-app.put('/api/contacts/:id', (req, res) => {
+app.put('resapi.netlify.app/:id', (req, res) => {
   const idx = CONTACTS.findIndex(c => c.id === req.params.id);
   CONTACTS[idx] = req.body;
   res.json(CONTACTS[idx]);

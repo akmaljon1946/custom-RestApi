@@ -32,14 +32,14 @@ new Vue({
     async createContact () {
       const { ...contact } = this.form;
 
-      const newContact = await request('/api/contacts', 'POST', contact);
+      const newContact = await request('resapi.netlify.app', 'POST', contact);
 
       this.contacts.push(newContact);
       this.form.name = this.form.value = this.form.title = '';
     },
     async markContact (id) {
       const contact = this.contacts.find(c => c.id === id);
-      const updated = await request(`/api/contacts/${ id }`, 'PUT', {
+      const updated = await request(`resapi.netlify.app/${ id }`, 'PUT', {
         ...contact, marked: true
       });
       contact.marked = updated.marked;
@@ -52,7 +52,7 @@ new Vue({
   },
   async mounted () {
     this.loading = true;
-    this.contacts = await request('/api/contacts');
+    this.contacts = await request('resapi.netlify.app');
     this.loading = false;
   }
 });
