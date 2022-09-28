@@ -10,7 +10,7 @@ let CONTACTS = [
 app.use(express.json());
 
 //GET
-app.get('resapi.netlify.app', (req, res) => {
+app.get('/api/contacts', (req, res) => {
   setTimeout(() => {
     res.status(200).json(CONTACTS);
 
@@ -18,7 +18,7 @@ app.get('resapi.netlify.app', (req, res) => {
 });
 
 //POST
-app.post('resapi.netlify.app', (req, res) => {
+app.post('/api/contacts', (req, res) => {
   const contact = { id: v4(), ...req.body, marked: false };
   CONTACTS.push(contact);
   res.status(201).json(contact);
@@ -26,13 +26,13 @@ app.post('resapi.netlify.app', (req, res) => {
 });
 
 //DELETE
-app.delete('resapi.netlify.app/:id', (req, res) => {
+app.delete('/api/contacts/:id', (req, res) => {
   CONTACTS = CONTACTS.filter(c => c.id !== req.params.id);
   res.status(200).json({ message: 'Malumot ochirib tashlandi' });
 });
 
 //PUT
-app.put('resapi.netlify.app/:id', (req, res) => {
+app.put('/api/contacts/:id', (req, res) => {
   const idx = CONTACTS.findIndex(c => c.id === req.params.id);
   CONTACTS[idx] = req.body;
   res.json(CONTACTS[idx]);
@@ -48,4 +48,4 @@ app.use(express.static(path.resolve(__dirname, 'client')));
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'client', 'index.html'));
 });
-app.listen('resapi.netlify.app'() => console.log("Server has been started on port 3000..."));
+app.listen(3000, () => console.log("Server has been started on port 3000..."));
